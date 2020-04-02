@@ -45,3 +45,4 @@ D:\WHU\Junior_B\ArcfaceDemo_CSharp_2.2\ArcSoftFace\ArcSoftFace\obj\x64\Debug\Arc
 D:\WHU\Junior_B\ArcfaceDemo_CSharp_2.2\ArcSoftFace\ArcSoftFace\obj\x64\Debug\ArcSoftFace.csproj.CopyComplete
 D:\WHU\Junior_B\ArcfaceDemo_CSharp_2.2\ArcSoftFace\ArcSoftFace\obj\x64\Debug\ArcSoftFace.exe
 D:\WHU\Junior_B\ArcfaceDemo_CSharp_2.2\ArcSoftFace\ArcSoftFace\obj\x64\Debug\ArcSoftFace.pdb
+D:\WHU\Junior_B\ArcfaceDemo_CSharp_2.2\ArcSoftFace\ArcSoftFace\obj\x64\Debug\ArcSoftFace.AuthenticationForm.resources

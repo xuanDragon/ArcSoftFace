@@ -146,6 +146,9 @@
     <Compile Include="Utils\FaceUtil.cs" />
     <Compile Include="Utils\ImageUtil.cs" />
     <Compile Include="Utils\MemoryUtil.cs" />
+    <EmbeddedResource Include="AuthenticationForm.resx">
+      <DependentUpon>AuthenticationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FaceForm.resx">
       <DependentUpon>FaceForm.cs</DependentUpon>
     </EmbeddedResource>
