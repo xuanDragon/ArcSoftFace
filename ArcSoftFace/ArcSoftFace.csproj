@@ -114,6 +114,30 @@
       <DependentUpon>AuthenticationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Entity\FaceTrackUnit.cs" />
+    <Compile Include="FormClass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormClass.Designer.cs">
+      <DependentUpon>FormClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDisplay.Designer.cs">
+      <DependentUpon>FormDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRecord.Designer.cs">
+      <DependentUpon>FormRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStudent.Designer.cs">
+      <DependentUpon>FormStudent.cs</DependentUpon>
+    </Compile>
     <Compile Include="SDKModels\ASF_AgeInfo.cs" />
     <Compile Include="SDKModels\ASF_Face3DAngle.cs" />
     <Compile Include="SDKModels\ASF_FaceFeature.cs" />

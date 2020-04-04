@@ -513,6 +513,17 @@ namespace ArcSoftFace
             if (comboBoxClass.SelectedIndex == 0) labelStudentAttendance.Text = "到课次数：";
             else labelStudentAttendance.Text = "到课次数：" + students[comboBoxStudent.SelectedIndex].Attendance.ToString();
             importImage(students[comboBoxStudent.SelectedIndex].Sno);
+            if (records.Count > 0)
+            {
+                labelRecordName.Text = "姓名：" + students[comboBoxStudent.SelectedIndex].Sname;
+                if (records[comboBoxRecord.SelectedIndex].list[comboBoxStudent.SelectedIndex]) labelRecordStatus.Text = "状态：已签到";
+                else labelRecordStatus.Text = "状态：未签到";
+            }
+            else
+            {
+                labelRecordName.Text = "姓名：";
+                labelRecordStatus.Text = "状态：";
+            }
         }
 
         private void comboBoxRecord_SelectedIndexChanged(object sender, EventArgs e)
@@ -520,13 +531,28 @@ namespace ArcSoftFace
             buttonStart.Enabled = true;
             labelRecordAttendance.Text = "已到课人数：" + records[comboBoxRecord.SelectedIndex].Attendance.ToString();
             labelRecordSkip.Text = "未到课人数：" + (students.Count - records[comboBoxRecord.SelectedIndex].Attendance).ToString();
+            if (students.Count > 0)
+            {
+                labelRecordName.Text = "姓名：" + students[comboBoxStudent.SelectedIndex].Sname;
+                if (records[comboBoxRecord.SelectedIndex].list[comboBoxStudent.SelectedIndex]) labelRecordStatus.Text = "状态：已签到";
+                else labelRecordStatus.Text = "状态：未签到";
+            }
+            else
+            {
+                labelRecordName.Text = "姓名：";
+                labelRecordStatus.Text = "状态：";
+            }
         }
         #endregion
 
         #region Click
         private void buttonClassNew_Click(object sender, EventArgs e)
         {
+            FormClass formClass = new FormClass();
+            if (formClass.ShowDialog() == DialogResult.OK)
+            {
 
+            }
         }
 
         private void buttonClassDelete_Click(object sender, EventArgs e)
@@ -536,12 +562,20 @@ namespace ArcSoftFace
 
         private void buttonClassEdit_Click(object sender, EventArgs e)
         {
+            FormClass formClass = new FormClass();
+            if (formClass.ShowDialog() == DialogResult.OK)
+            {
 
+            }
         }
 
         private void buttonStudentNew_Click(object sender, EventArgs e)
         {
+            FormStudent formStudent = new FormStudent();
+            if (formStudent.ShowDialog() == DialogResult.OK)
+            {
 
+            }
         }
 
         private void buttonStudentDelete_Click(object sender, EventArgs e)
@@ -551,12 +585,20 @@ namespace ArcSoftFace
 
         private void buttonStudentEdit_Click(object sender, EventArgs e)
         {
+            FormStudent formStudent = new FormStudent();
+            if (formStudent.ShowDialog() == DialogResult.OK)
+            {
 
+            }
         }
 
         private void buttonRecordNew_Click(object sender, EventArgs e)
         {
+            FormRecord formRecord = new FormRecord();
+            if (formRecord.ShowDialog() == DialogResult.OK)
+            {
 
+            }
         }
 
         private void buttonRecordDelete_Click(object sender, EventArgs e)
@@ -566,7 +608,8 @@ namespace ArcSoftFace
 
         private void buttonRecordDisplay_Click(object sender, EventArgs e)
         {
-
+            FormDisplay formDisplay = new FormDisplay();
+            formDisplay.ShowDialog();
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -611,8 +654,6 @@ namespace ArcSoftFace
                 textBoxThreshold.Enabled = true;
                 FinishVideo();
                 WriteRecord();
-                labelRecordName.Text = "姓名：";
-                labelRecordStatus.Text = "状态：";
 
             }
             else
@@ -774,6 +815,8 @@ namespace ArcSoftFace
                                 {
                                     //显示消息
                                     trackRGBUnit.message = string.Format("RGB{0}", isLiveness ? "活体" : "假体");
+                                    labelRecordName.Text = "姓名：";
+                                    labelRecordStatus.Text = "状态：";
                                 }
                             }
                             catch (Exception ex)
