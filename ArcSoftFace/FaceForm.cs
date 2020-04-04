@@ -132,7 +132,7 @@ namespace ArcSoftFace
             irCameraIndex = (int)reader.GetValue("IR_CAMERA_INDEX", typeof(int));
             //判断CPU位数
             var is64CPU = Environment.Is64BitProcess;
-            if (string.IsNullOrWhiteSpace(appId) || string.IsNullOrWhiteSpace(is64CPU?sdkKey64: sdkKey32))
+            if (string.IsNullOrWhiteSpace(appId) || string.IsNullOrWhiteSpace(is64CPU ? sdkKey64 : sdkKey32))
             {
                 //禁用相关功能按钮
                 ControlsEnable(false, chooseMultiImgBtn, matchBtn, btnClearFaceList, chooseImgBtn);
@@ -194,7 +194,7 @@ namespace ArcSoftFace
             retCode = ASFFunctions.ASFInitEngine(detectMode, imageDetectFaceOrientPriority, detectFaceScaleVal, detectFaceMaxNum, combinedMask, ref pVideoRGBImageEngine);
 
             //IR视频专用FR引擎
-            combinedMask = FaceEngineMask.ASF_FACE_DETECT  | FaceEngineMask.ASF_FACERECOGNITION | FaceEngineMask.ASF_IR_LIVENESS;
+            combinedMask = FaceEngineMask.ASF_FACE_DETECT | FaceEngineMask.ASF_FACERECOGNITION | FaceEngineMask.ASF_IR_LIVENESS;
             retCode = ASFFunctions.ASFInitEngine(detectMode, imageDetectFaceOrientPriority, detectFaceScaleVal, detectFaceMaxNum, combinedMask, ref pVideoIRImageEngine);
 
             Console.WriteLine("InitVideoEngine Result:" + retCode);
@@ -250,7 +250,8 @@ namespace ArcSoftFace
                     for (int i = 0; i < fileNames.Length; i++)
                     {
                         //图片格式判断
-                        if (checkImage(fileNames[i])) { 
+                        if (checkImage(fileNames[i]))
+                        {
                             imagePathListTemp.Add(fileNames[i]);
                         }
                     }
@@ -272,7 +273,7 @@ namespace ArcSoftFace
                         for (int i = 0; i < imagePathListTemp.Count; i++)
                         {
                             Image image = ImageUtil.readFromFile(imagePathListTemp[i]);
-                            if(image == null)
+                            if (image == null)
                             {
                                 continue;
                             }
@@ -299,7 +300,7 @@ namespace ArcSoftFace
                             }
                             else
                             {
-                                if(image != null)
+                                if (image != null)
                                 {
                                     image.Dispose();
                                 }
@@ -566,7 +567,7 @@ namespace ArcSoftFace
                 }
 
                 AppendText(string.Format("{0} - 人脸数量:{1}\n\n", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), multiFaceInfo.faceNum));
-                
+
                 DateTime detectEndTime = DateTime.Now;
                 AppendText(string.Format("------------------------------检测结束，时间:{0}------------------------------\n", detectEndTime.ToString("yyyy-MM-dd HH:mm:ss:ms")));
                 AppendText("\n");
@@ -629,7 +630,7 @@ namespace ArcSoftFace
                 float similarity = 0f;
                 int ret = ASFFunctions.ASFFaceFeatureCompare(pImageEngine, image1Feature, feature, ref similarity);
                 //增加异常值处理
-                if(similarity.ToString().IndexOf("E") > -1)
+                if (similarity.ToString().IndexOf("E") > -1)
                 {
                     similarity = 0f;
                 }
@@ -707,7 +708,7 @@ namespace ArcSoftFace
                 //获取filterInfoCollection的总数
                 int maxCameraCount = filterInfoCollection.Count;
                 //如果配置了两个不同的摄像头索引
-                if(rgbCameraIndex != irCameraIndex && maxCameraCount>=2)
+                if (rgbCameraIndex != irCameraIndex && maxCameraCount >= 2)
                 {
                     //RGB摄像头加载
                     rgbDeviceVideo = new VideoCaptureDevice(filterInfoCollection[rgbCameraIndex < maxCameraCount ? rgbCameraIndex : 0].MonikerString);
@@ -716,7 +717,7 @@ namespace ArcSoftFace
                     rgbVideoSource.Start();
 
                     //IR摄像头
-                    irDeviceVideo = new VideoCaptureDevice(filterInfoCollection[irCameraIndex< maxCameraCount? irCameraIndex:0].MonikerString);
+                    irDeviceVideo = new VideoCaptureDevice(filterInfoCollection[irCameraIndex < maxCameraCount ? irCameraIndex : 0].MonikerString);
                     irDeviceVideo.VideoResolution = irDeviceVideo.VideoCapabilities[0];
                     irVideoSource.VideoSource = irDeviceVideo;
                     irVideoSource.Start();
@@ -734,7 +735,7 @@ namespace ArcSoftFace
                 }
             }
         }
-        
+
         private FaceTrackUnit trackRGBUnit = new FaceTrackUnit();
         private FaceTrackUnit trackIRUnit = new FaceTrackUnit();
         private Font font = new Font(FontFamily.GenericSerif, 10f, FontStyle.Bold);
@@ -800,7 +801,7 @@ namespace ArcSoftFace
                                     allRect.right = (int)(rect.right * offsetX);
                                     allRect.bottom = (int)(rect.bottom * offsetY);
                                 }
-                                
+
                                 bool isLiveness = false;
 
                                 //调整图片数据，非常重要
@@ -853,7 +854,7 @@ namespace ArcSoftFace
                             }
                             finally
                             {
-                                if(bitmap != null)
+                                if (bitmap != null)
                                 {
                                     bitmap.Dispose();
                                 }
@@ -1016,7 +1017,7 @@ namespace ArcSoftFace
                 }
             }
             return result;
-        }        
+        }
 
         /// <summary>
         /// 摄像头播放完成事件
@@ -1131,13 +1132,13 @@ namespace ArcSoftFace
         /// </summary>
         /// <param name="isEnable"></param>
         /// <param name="controls">控件列表</param>
-        private void ControlsEnable(bool isEnable,params Control[] controls)
+        private void ControlsEnable(bool isEnable, params Control[] controls)
         {
-            if(controls == null || controls.Length <= 0)
+            if (controls == null || controls.Length <= 0)
             {
                 return;
             }
-            foreach(Control control in controls)
+            foreach (Control control in controls)
             {
                 control.Enabled = isEnable;
             }
@@ -1159,10 +1160,11 @@ namespace ArcSoftFace
             {
                 //判断图片是否正常，如将其他文件把后缀改为.jpg，这样就会报错
                 Image image = ImageUtil.readFromFile(imagePath);
-                if(image == null)
+                if (image == null)
                 {
                     throw new Exception();
-                }else
+                }
+                else
                 {
                     image.Dispose();
                 }

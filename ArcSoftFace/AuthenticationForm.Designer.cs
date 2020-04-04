@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuthenticationForm));
             this.groupBoxClass = new System.Windows.Forms.GroupBox();
             this.labelClassCount = new System.Windows.Forms.Label();
@@ -59,11 +58,11 @@
             this.buttonRecordNew = new System.Windows.Forms.Button();
             this.pictureBoxImage = new System.Windows.Forms.PictureBox();
             this.groupBoxOperation = new System.Windows.Forms.GroupBox();
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.labelThreshold = new System.Windows.Forms.Label();
-            this.textBoxThreshold = new System.Windows.Forms.TextBox();
-            this.logBox = new System.Windows.Forms.TextBox();
             this.pictureBoxFace = new System.Windows.Forms.PictureBox();
+            this.logBox = new System.Windows.Forms.TextBox();
+            this.textBoxThreshold = new System.Windows.Forms.TextBox();
+            this.labelThreshold = new System.Windows.Forms.Label();
+            this.buttonStart = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.rgbVideoSource = new AForge.Controls.VideoSourcePlayer();
             this.irVideoSource = new AForge.Controls.VideoSourcePlayer();
@@ -135,6 +134,7 @@
             this.comboBoxClass.Name = "comboBoxClass";
             this.comboBoxClass.Size = new System.Drawing.Size(312, 26);
             this.comboBoxClass.TabIndex = 3;
+            this.comboBoxClass.SelectedIndexChanged += new System.EventHandler(this.comboBoxClass_SelectedIndexChanged);
             // 
             // buttonClassEdit
             // 
@@ -144,6 +144,7 @@
             this.buttonClassEdit.TabIndex = 2;
             this.buttonClassEdit.Text = "Edit";
             this.buttonClassEdit.UseVisualStyleBackColor = true;
+            this.buttonClassEdit.Click += new System.EventHandler(this.buttonClassEdit_Click);
             // 
             // buttonClassDelete
             // 
@@ -153,6 +154,7 @@
             this.buttonClassDelete.TabIndex = 1;
             this.buttonClassDelete.Text = "Delete";
             this.buttonClassDelete.UseVisualStyleBackColor = true;
+            this.buttonClassDelete.Click += new System.EventHandler(this.buttonClassDelete_Click);
             // 
             // buttonClassNew
             // 
@@ -162,6 +164,7 @@
             this.buttonClassNew.TabIndex = 0;
             this.buttonClassNew.Text = "New";
             this.buttonClassNew.UseVisualStyleBackColor = true;
+            this.buttonClassNew.Click += new System.EventHandler(this.buttonClassNew_Click);
             // 
             // groupBoxStudent
             // 
@@ -223,6 +226,7 @@
             this.comboBoxStudent.Name = "comboBoxStudent";
             this.comboBoxStudent.Size = new System.Drawing.Size(312, 26);
             this.comboBoxStudent.TabIndex = 3;
+            this.comboBoxStudent.SelectedIndexChanged += new System.EventHandler(this.comboBoxStudent_SelectedIndexChanged);
             // 
             // buttonStudentEdit
             // 
@@ -232,6 +236,7 @@
             this.buttonStudentEdit.TabIndex = 2;
             this.buttonStudentEdit.Text = "Edit";
             this.buttonStudentEdit.UseVisualStyleBackColor = true;
+            this.buttonStudentEdit.Click += new System.EventHandler(this.buttonStudentEdit_Click);
             // 
             // buttonStudentDelete
             // 
@@ -241,6 +246,7 @@
             this.buttonStudentDelete.TabIndex = 1;
             this.buttonStudentDelete.Text = "Delete";
             this.buttonStudentDelete.UseVisualStyleBackColor = true;
+            this.buttonStudentDelete.Click += new System.EventHandler(this.buttonStudentDelete_Click);
             // 
             // buttonStudentNew
             // 
@@ -250,6 +256,7 @@
             this.buttonStudentNew.TabIndex = 0;
             this.buttonStudentNew.Text = "New";
             this.buttonStudentNew.UseVisualStyleBackColor = true;
+            this.buttonStudentNew.Click += new System.EventHandler(this.buttonStudentNew_Click);
             // 
             // groupBoxRecord
             // 
@@ -311,6 +318,7 @@
             this.comboBoxRecord.Name = "comboBoxRecord";
             this.comboBoxRecord.Size = new System.Drawing.Size(312, 26);
             this.comboBoxRecord.TabIndex = 3;
+            this.comboBoxRecord.SelectedIndexChanged += new System.EventHandler(this.comboBoxRecord_SelectedIndexChanged);
             // 
             // buttonRecordDisplay
             // 
@@ -320,6 +328,7 @@
             this.buttonRecordDisplay.TabIndex = 2;
             this.buttonRecordDisplay.Text = "Display";
             this.buttonRecordDisplay.UseVisualStyleBackColor = true;
+            this.buttonRecordDisplay.Click += new System.EventHandler(this.buttonRecordDisplay_Click);
             // 
             // buttonRecordDelete
             // 
@@ -329,6 +338,7 @@
             this.buttonRecordDelete.TabIndex = 1;
             this.buttonRecordDelete.Text = "Delete";
             this.buttonRecordDelete.UseVisualStyleBackColor = true;
+            this.buttonRecordDelete.Click += new System.EventHandler(this.buttonRecordDelete_Click);
             // 
             // buttonRecordNew
             // 
@@ -338,6 +348,7 @@
             this.buttonRecordNew.TabIndex = 0;
             this.buttonRecordNew.Text = "New";
             this.buttonRecordNew.UseVisualStyleBackColor = true;
+            this.buttonRecordNew.Click += new System.EventHandler(this.buttonRecordNew_Click);
             // 
             // pictureBoxImage
             // 
@@ -361,15 +372,29 @@
             this.groupBoxOperation.TabStop = false;
             this.groupBoxOperation.Text = "Operation";
             // 
-            // buttonStart
+            // pictureBoxFace
             // 
-            this.buttonStart.Font = new System.Drawing.Font("楷体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonStart.Location = new System.Drawing.Point(6, 27);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(180, 36);
-            this.buttonStart.TabIndex = 0;
-            this.buttonStart.Text = "开始考勤";
-            this.buttonStart.UseVisualStyleBackColor = true;
+            this.pictureBoxFace.Location = new System.Drawing.Point(6, 103);
+            this.pictureBoxFace.Name = "pictureBoxFace";
+            this.pictureBoxFace.Size = new System.Drawing.Size(180, 180);
+            this.pictureBoxFace.TabIndex = 4;
+            this.pictureBoxFace.TabStop = false;
+            // 
+            // logBox
+            // 
+            this.logBox.Location = new System.Drawing.Point(192, 27);
+            this.logBox.Multiline = true;
+            this.logBox.Name = "logBox";
+            this.logBox.Size = new System.Drawing.Size(402, 256);
+            this.logBox.TabIndex = 3;
+            // 
+            // textBoxThreshold
+            // 
+            this.textBoxThreshold.Location = new System.Drawing.Point(74, 69);
+            this.textBoxThreshold.Name = "textBoxThreshold";
+            this.textBoxThreshold.Size = new System.Drawing.Size(112, 28);
+            this.textBoxThreshold.TabIndex = 2;
+            this.textBoxThreshold.Text = "0.8";
             // 
             // labelThreshold
             // 
@@ -380,29 +405,16 @@
             this.labelThreshold.TabIndex = 1;
             this.labelThreshold.Text = "阈值：";
             // 
-            // textBoxThreshold
+            // buttonStart
             // 
-            this.textBoxThreshold.Location = new System.Drawing.Point(74, 69);
-            this.textBoxThreshold.Name = "textBoxThreshold";
-            this.textBoxThreshold.Size = new System.Drawing.Size(112, 28);
-            this.textBoxThreshold.TabIndex = 2;
-            this.textBoxThreshold.Text = "0.8";
-            // 
-            // logBox
-            // 
-            this.logBox.Location = new System.Drawing.Point(192, 27);
-            this.logBox.Multiline = true;
-            this.logBox.Name = "logBox";
-            this.logBox.Size = new System.Drawing.Size(402, 256);
-            this.logBox.TabIndex = 3;
-            // 
-            // pictureBoxFace
-            // 
-            this.pictureBoxFace.Location = new System.Drawing.Point(6, 103);
-            this.pictureBoxFace.Name = "pictureBoxFace";
-            this.pictureBoxFace.Size = new System.Drawing.Size(180, 180);
-            this.pictureBoxFace.TabIndex = 4;
-            this.pictureBoxFace.TabStop = false;
+            this.buttonStart.Font = new System.Drawing.Font("楷体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonStart.Location = new System.Drawing.Point(6, 27);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(180, 36);
+            this.buttonStart.TabIndex = 0;
+            this.buttonStart.Text = "开始考勤";
+            this.buttonStart.UseVisualStyleBackColor = true;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
             // labelInfo
             // 
