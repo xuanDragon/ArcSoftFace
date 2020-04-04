@@ -354,7 +354,7 @@
             // 
             this.pictureBoxImage.Location = new System.Drawing.Point(618, 42);
             this.pictureBoxImage.Name = "pictureBoxImage";
-            this.pictureBoxImage.Size = new System.Drawing.Size(640, 640);
+            this.pictureBoxImage.Size = new System.Drawing.Size(800, 640);
             this.pictureBoxImage.TabIndex = 3;
             this.pictureBoxImage.TabStop = false;
             // 
@@ -429,15 +429,17 @@
             this.rgbVideoSource.Location = new System.Drawing.Point(618, 42);
             this.rgbVideoSource.Margin = new System.Windows.Forms.Padding(4);
             this.rgbVideoSource.Name = "rgbVideoSource";
-            this.rgbVideoSource.Size = new System.Drawing.Size(640, 640);
+            this.rgbVideoSource.Size = new System.Drawing.Size(800, 640);
             this.rgbVideoSource.TabIndex = 39;
             this.rgbVideoSource.Text = "videoSource";
             this.rgbVideoSource.VideoSource = null;
+            this.rgbVideoSource.PlayingFinished += new AForge.Video.PlayingFinishedEventHandler(this.videoSource_PlayingFinished);
+            this.rgbVideoSource.Paint += new System.Windows.Forms.PaintEventHandler(this.rgbVideoSource_Paint);
             // 
             // irVideoSource
             // 
             this.irVideoSource.BackColor = System.Drawing.SystemColors.Control;
-            this.irVideoSource.Location = new System.Drawing.Point(1048, 42);
+            this.irVideoSource.Location = new System.Drawing.Point(1208, 42);
             this.irVideoSource.Margin = new System.Windows.Forms.Padding(4);
             this.irVideoSource.Name = "irVideoSource";
             this.irVideoSource.Size = new System.Drawing.Size(210, 160);
@@ -445,12 +447,15 @@
             this.irVideoSource.Text = "videoSource";
             this.irVideoSource.VideoSource = null;
             this.irVideoSource.Visible = false;
+            this.irVideoSource.PlayingFinished += new AForge.Video.PlayingFinishedEventHandler(this.videoSource_PlayingFinished);
+            this.irVideoSource.Paint += new System.Windows.Forms.PaintEventHandler(this.irVideoSource_Paint);
             // 
             // AuthenticationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1270, 694);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1430, 694);
             this.Controls.Add(this.irVideoSource);
             this.Controls.Add(this.rgbVideoSource);
             this.Controls.Add(this.labelInfo);
@@ -460,10 +465,11 @@
             this.Controls.Add(this.groupBoxStudent);
             this.Controls.Add(this.groupBoxClass);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(1292, 750);
-            this.MinimumSize = new System.Drawing.Size(1292, 750);
+            this.MaximumSize = new System.Drawing.Size(1452, 750);
+            this.MinimumSize = new System.Drawing.Size(1452, 750);
             this.Name = "AuthenticationForm";
             this.Text = "WHU离线人脸考勤系统";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AuthenticationForm_FormClosed);
             this.groupBoxClass.ResumeLayout(false);
             this.groupBoxClass.PerformLayout();
             this.groupBoxStudent.ResumeLayout(false);
