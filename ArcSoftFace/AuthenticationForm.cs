@@ -22,9 +22,9 @@ namespace ArcSoftFace
         #region Data
         class Class
         {
-            public string Cno;
-            public string Cname;
-            public int recordNum;
+            public string Cno;      //课程号
+            public string Cname;    //课程名
+            public int recordNum;   //考勤记录数
             public Class(string Cno, string Cname, int recordNum)
             {
                 this.Cno = Cno;
@@ -34,10 +34,10 @@ namespace ArcSoftFace
         }
         class Student
         {
-            public string Sno;
-            public string Sname;
-            public string Gender;
-            public int Attendance;
+            public string Sno;      //学号
+            public string Sname;    //姓名
+            public string Gender;   //性别
+            public int Attendance;  //在当前课堂下的到课次数
             public Student(string Sno, string Sname, string Gender, int Attendance)
             {
                 this.Sno = Sno;
@@ -48,9 +48,9 @@ namespace ArcSoftFace
         }
         class Record
         {
-            public string Rname;
-            public int Attendance;  //出席人数
-            public List<bool> list;        //出席学生列表
+            public string Rname;            //记录名
+            public int Attendance;          //出席人数
+            public List<bool> list;         //出席学生列表（列表长应等于学生数）
             public Record(string Rname, int Attendance)
             {
                 this.Rname = Rname;
@@ -122,7 +122,7 @@ namespace ArcSoftFace
                 {
                     comboBoxStudent.Items.Add(s.Sno + " " + s.Sname);
                 }
-                comboBoxStudent.SelectedIndex = 0;
+                if (students.Count > 0) comboBoxStudent.SelectedIndex = 0;
                 labelClassStuNum.Text = "学生数：" + students.Count.ToString();
             }
             else
@@ -169,7 +169,7 @@ namespace ArcSoftFace
                 {
                     comboBoxStudent.Items.Add(s.Sno + " " + s.Sname);
                 }
-                comboBoxStudent.SelectedIndex = 0;
+                if (students.Count > 0) comboBoxStudent.SelectedIndex = 0;
                 labelClassStuNum.Text = "学生数：" + students.Count.ToString();
             }
         }
