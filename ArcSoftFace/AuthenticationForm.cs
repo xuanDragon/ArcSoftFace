@@ -571,21 +571,212 @@ namespace ArcSoftFace
 
         private void buttonStudentNew_Click(object sender, EventArgs e)
         {
+            getClass = comboBoxClass.SelectedItem.ToString();
+            getStudent = comboBoxStudent.SelectedItem.ToString();
             FormStudent formStudent = new FormStudent();
             if (formStudent.ShowDialog() == DialogResult.OK)
             {
 
             }
         }
+        //判断是否所有课程都没有该学生
+        private bool ExistStudent(string sno)
+        {
+            bool flag = true; //标志位
+            int lines = 0; //统计课程数，用来定义数组记录课程号
+            using (StreamReader sr = File.OpenText("..\\..\\..\\Database\\Class\\Class.csv"))
+            {
+                string strline = sr.ReadLine();
+                while ((strline = sr.ReadLine()) != null)
+                {
+                    lines++;
+                }
+            }
+            string[] Course = new string[lines];
+            //将所有课程课程号读入数组
+            using (StreamReader sr = File.OpenText("..\\..\\..\\Database\\Class\\Class.csv"))
+            {
+                string strLine = sr.ReadLine();
+                string[] strArray;
+                int i = 0;
+                while ((strLine = sr.ReadLine()) != null)
+                {
+                    strArray = strLine.Split(',');
+                    Course[i] = strArray[0];
+                    i++;
+                }
+            }
+            foreach (string c in Course)
+            {
+                using (StreamReader sr = File.OpenText("..\\..\\..\\Database\\Class\\List\\" + c + ".csv"))
+                {
+                    string strLine = sr.ReadLine();
+                    string[] strClass;
+                    while ((strLine = sr.ReadLine()) != null)
+                    {
+                        strClass = strLine.Split(',');
+                        if (strClass[0] == sno)
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (flag == false)
+                        break;
+                }
+            }
+            return flag;
+        }
 
+        //在对应课程中删除该学生信息
+        private void deleteStudent(string Cno, string Sno)
+        {
+            int record = 0;
+            string text = "Sno";
+            //统计该课程的签到次数
+            using (StreamReader sr = File.OpenText("..\\..\\..\\Database\\Class\\Class.csv"))
+            {
+                string strLine = sr.ReadLine();
+                string[] strArray;
+                while ((strLine = sr.ReadLine()) != null)
+                {
+                    strArray = strLine.Split(',');
+                    if (strArray[0] == Cno)
+                        record = Convert.ToInt32(strArray[2]);
+                }
+            }
+            for (int i = 0; i < record; i++)
+            {
+                string str = (",Record" + (i + 1).ToString());
+                text += str;
+            }
+            text += "\r\n";
+            //将课程数据全部读出（除去对应的学号）读入text
+            using (StreamReader sr = File.OpenText("..\\..\\..\\Database\\Class\\List\\" + Cno + ".csv"))
+            {
+                string strLine = sr.ReadLine();
+                string[] strClass;
+                while ((strLine = sr.ReadLine()) != null)
+                {
+                    strClass = strLine.Split(',');
+                    if (strClass[0] == Sno)
+                        continue;
+                    else
+                    {
+                        text += strLine + "\r\n";
+                    }
+                }
+            }
+            //将text重新写入
+            using (StreamWriter writer = new StreamWriter("..\\..\\..\\Database\\Class\\List\\" + Cno + ".csv"))
+            {
+                writer.Write(text);
+            }
+        }
         private void buttonStudentDelete_Click(object sender, EventArgs e)
         {
-
+            getClass = comboBoxClass.SelectedItem.ToString();
+            string getStudent = comboBoxStudent.SelectedItem.ToString();
+            string[] strArray1, strArray2;
+            strArray1 = getClass.Split(' ');
+            string Cno = strArray1[0], Cname = strArray1[1];
+            strArray2 = getStudent.Split(' ');
+            string Sno = strArray2[0], Sname = strArray2[1];
+            //即删除该学生所有记录
+            if (getClass == " ALL STUDENTS")
+            {
+                //首先删除学生表中学生信息及照片
+                int lines = 0;  //统计课程数，用来定义数组记录课程号
+                string txt = "Sno,Sname,Gender" + "\r\n";
+                using (StreamReader sr = File.OpenText("..\\..\\..\\Database\\Student\\Student.csv"))
+                {
+                    string strLine = sr.ReadLine();
+                    string[] strStudent;
+                    while ((strLine = sr.ReadLine()) != null)
+                    {
+                        strStudent = strLine.Split(',');
+                        if (strStudent[0] == Sno)
+                            continue;
+                        else
+                        {
+                            txt += strLine + "\r\n";
+                        }
+                    }
+                }
+                //将txt重新写入
+                using (StreamWriter writer = new StreamWriter("..\\..\\..\\Database\\Student\\Student.csv"))
+                {
+                    writer.Write(txt);
+                }
+                File.Delete("..\\..\\..\\Database\\Student\\Image\\" + Sno + ".jpg");
+                //统计课程数目
+                using (StreamReader sr = File.OpenText("..\\..\\..\\Database\\Class\\Class.csv"))
+                {
+                    string strline = sr.ReadLine();
+                    while ((strline = sr.ReadLine()) != null)
+                    {
+                        lines++;
+                    }
+                }
+                string[] Course = new string[lines];
+                //将所有课程课程号读入数组
+                using (StreamReader sr = File.OpenText("..\\..\\..\\Database\\Class\\Class.csv"))
+                {
+                    string strLine = sr.ReadLine();
+                    string[] strArray;
+                    int i = 0;
+                    while ((strLine = sr.ReadLine()) != null)
+                    {
+                        strArray = strLine.Split(',');
+                        Course[i] = strArray[0];
+                        i++;
+                    }
+                }
+                //在所有课程中寻找该学生信息，若有则删除
+                foreach (string c in Course)
+                {
+                    deleteStudent(c, Sno);
+                }
+            }
+            //删除该学生在对应课程的记录
+            else
+            {
+                deleteStudent(Cno, Sno);
+                //如果所有课程都没有该学生，则删除该学生信息
+                if (ExistStudent(Sno))
+                {
+                    string txt = "Sno,Sname,Gender" + "\r\n";
+                    using (StreamReader sr = File.OpenText("..\\..\\..\\Database\\Student\\Student.csv"))
+                    {
+                        string strLine = sr.ReadLine();
+                        string[] strClass;
+                        while ((strLine = sr.ReadLine()) != null)
+                        {
+                            strClass = strLine.Split(',');
+                            if (strClass[0] == Sno)
+                                continue;
+                            else
+                            {
+                                txt += strLine + "\r\n";
+                            }
+                        }
+                    }
+                    //将txt重新写入
+                    using (StreamWriter writer = new StreamWriter("..\\..\\..\\Database\\Student\\Student.csv"))
+                    {
+                        writer.Write(txt);
+                    }
+                    File.Delete("..\\..\\..\\Database\\Student\\Image\\" + Sno + ".jpg");
+                }
+            }
+            MessageBox.Show("删除成功");
         }
 
         private void buttonStudentEdit_Click(object sender, EventArgs e)
         {
-            FormStudent formStudent = new FormStudent();
+        getClass = comboBoxClass.SelectedItem.ToString();
+        getStudent = comboBoxStudent.SelectedItem.ToString();
+        FormStudent formStudent = new FormStudent();
             if (formStudent.ShowDialog() == DialogResult.OK)
             {
 
@@ -1056,6 +1247,14 @@ namespace ArcSoftFace
         /// </summary>
         private int irCameraIndex = 0;
 
+        /// <summary>
+        /// 记录选中的课程
+        /// </summary>
+        public static string getClass;
+        /// <summary>
+        /// 记录选中的学生
+        /// </summary>
+        public static string getStudent;
         #region 视频模式下相关
         /// <summary>
         /// 视频引擎Handle
